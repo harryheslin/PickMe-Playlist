@@ -1,35 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
-import axios from 'axios';
-import React from 'react';
-import { Button } from 'react-bootstrap'
+
+import { React, useState } from 'react';
+import homepage from './pages/homepage';
+import searchpage from './pages/searchpage';
+import NavBar from './components/navbar'
+import SubNavBar from './components/subNavbar'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import styled from 'styled-components'
+import Parampage from './pages/parampage';
 
 function App() {
-  const HandleSubmit = () => { 
-    axios.post(`http://localhost:3010/users`)
- }
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Button
-        onClick={HandleSubmit}
-        >Test Server</Button>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Styles>
+      <Router>
+      <NavBar />
+        <Switch>
+          <Route path="/" exact component={homepage} />
+          <Route path="/searchpage" exact component={searchpage} />
+          <Route path="/parampage" exact component={Parampage} />
+        </Switch>
+      </Router>
+    </Styles>
   );
 }
+const Styles = styled.div``
 
 export default App;

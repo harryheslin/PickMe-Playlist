@@ -20,5 +20,15 @@ module.exports = {
 
     searchArtist: function (spotifyApi, artist) {
         
+    },
+
+    getUser: async function (spotifyApi) {
+        try {
+            username = await spotifyApi.getMe();
+            return (username.body.id);
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
 }

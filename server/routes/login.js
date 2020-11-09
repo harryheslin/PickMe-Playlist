@@ -1,13 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  console.log("Pinged by the client!");
-});
-
 router.post('/', function(req, res, next) {
   console.log("Pinged by the client!");
+  res.status(200).json({ message: "Hello" });
 });
 
 module.exports = router;
