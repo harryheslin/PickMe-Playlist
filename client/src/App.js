@@ -11,7 +11,7 @@ import {
   Link
 } from "react-router-dom";
 import styled from 'styled-components'
-import Parampage from './pages/parampage';
+import generatepage from './pages/generatepage';
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={homepage} />
           <Route path="/searchpage" exact component={searchpage} />
-          <Route path="/parampage" exact component={Parampage} />
+          <Route path="/parampage" exact component={generatepage} />
         </Switch>
       </Router>
     </Styles>
