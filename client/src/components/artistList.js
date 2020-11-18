@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import PercentageSlider from './percentageSlider'
 import styled from 'styled-components'
-import { Col, Row, fluid, Container } from 'react-bootstrap'
+import { Col, Row, Container } from 'react-bootstrap'
 
 export default function ArtistList(props) {
 
@@ -62,20 +62,19 @@ export default function ArtistList(props) {
                 return (
                     <div className="artist-list">
                         <Container fluid className={colour[index % 2]}>
-                        <Row md={3}>
-                            <Col>
-                                <img className='spotify-images' src={i.image} />
-                            </Col>
-                            <Col className='result-name'>
-                                <h2 key={i} >{i.name}</h2>
-                            </Col>
-                            <Col className='result-slider'>
-                                <PercentageSlider updatePercentage={updatePercentage.bind(this)} artist={i} />
-                            </Col>
-
-                        </Row>
+                            <Row md={3}>
+                                <Col>
+                                    <img className='spotify-images' src={i.image} />
+                                </Col>
+                                <Col className='result-name'>
+                                    <h2 key={i} >{i.name}</h2>
+                                </Col>
+                                <Col className='result-slider'>
+                                    <PercentageSlider updatePercentage={updatePercentage.bind(this)} artist={i} />
+                                </Col>
+                            </Row>
                         </Container>
-                        </div>
+                    </div>
                 )
             })}
         </Styles>
@@ -91,22 +90,22 @@ const Styles = styled.div`
 }
 
 .result-item1{
-    background-color: rgba(51, 170, 51, .8) ;
+    background-color: rgba(30, 215, 96) ;
     border-radius: 10px;
 }
 
 .result-item2{
-    background-color: rgb(0, 0, 0, .5) ;
+    background-color: rgb(0, 0, 0 ) ;
     border-radius: 10px;
 }
 
 .result-name{
-    padding-top: 1%;
+    padding-top: 2%;
     color: white;
 }
 
 .result-slider{
-    padding-top: 1%;
+    padding-top: 2%;
 }
 
 .artist-list {
