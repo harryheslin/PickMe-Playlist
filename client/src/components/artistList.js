@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import PercentageSlider from './percentageSlider'
+import PercentageSlider from './slider'
 import styled from 'styled-components'
 import { Col, Row, Container } from 'react-bootstrap'
 
@@ -26,9 +26,9 @@ export default function ArtistList(props) {
             else {
                 let temp =
                 {
-                    number: index,
+                    id: element.id,
                     name: element.label,
-                    image: element.value,
+                    image: element.value, 
                     percentage: 0
                 }
                 artistsTemp.push(temp);
@@ -43,7 +43,7 @@ export default function ArtistList(props) {
         let temp = [...getArtists];
         let artist = key;
         let updatedArtist = {
-            number: artist.number,
+            id: artist.id,
             name: artist.name,
             image: artist.image,
             percentage: value

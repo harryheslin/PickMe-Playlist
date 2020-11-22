@@ -17,7 +17,7 @@ export default function SearchBar(props) {
 
     const loadOptions = async (inputValue, callback) => {
         const artists = await spotifyApi.searchArtists(inputValue, { limit: 5 });
-        callback(artists.body.artists.items.map(i => ({ label: i.name, value: i.images[0].url })));
+        callback(artists.body.artists.items.map(i => ({ label: i.name, value: i.images[0].url, id: i.id })));
     }
 
     return (

@@ -4,9 +4,9 @@ import { Redirect, useLocation } from "react-router-dom"
 import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
 import SearchBar from '../components/searchBar';
-import ProgressBar from '../components/progressBar';
+import ProgressBar from '../components/progress';
 import ArtistList from '../components/artistList';
-import TotalSongsOptions from '../components/totalSongsOptions';
+import TotalSongsOptions from '../components/totalSongs';
 import { Col, Row, Container } from 'react-bootstrap';
 import AlertMessage from '../components/alert';
 export default function Searchpage(props) {
@@ -18,7 +18,6 @@ export default function Searchpage(props) {
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState();
     const location = useLocation();
-    //const [totalPercentage, setTotalPercentage] = useState(0);
 
     let token = location.hash.match(new RegExp("access_token=" + "((.*))" + "&token_type"))[1];
 
@@ -47,6 +46,8 @@ export default function Searchpage(props) {
             setRedirect(false);
         }
         else {
+            let finalArtists = [...artists].filter(artist => artist.percentage > 0);
+            console.log(finalArtists);
             return (
                 <Redirect to='/parampage' />
             )
