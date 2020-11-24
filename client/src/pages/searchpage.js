@@ -1,6 +1,5 @@
-import SubNavBar from '../components/subNavbar'
-import { React, useState, useEffect } from 'react'
-import { Redirect, useLocation } from "react-router-dom"
+import { React, useState } from 'react'
+import { Redirect } from "react-router-dom"
 import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
 import SearchBar from '../components/searchBar';
@@ -9,6 +8,10 @@ import ArtistList from '../components/artistList';
 import TotalSongsOptions from '../components/totalSongs';
 import { Col, Row, Container } from 'react-bootstrap';
 import AlertMessage from '../components/alert';
+import FetchServer from '../components/fetchServer';
+
+let qs = require('qs');
+
 export default function Searchpage(props) {
 
     const [redirect, setRedirect] = useState(false);
@@ -17,9 +20,8 @@ export default function Searchpage(props) {
     const [selectedArtists, setSelectedArtists] = useState();
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState();
-    const location = useLocation();
-
-    let token = location.hash.match(new RegExp("access_token=" + "((.*))" + "&token_type"))[1];
+    let token = qs.parse(props.location.search, { ignoreQueryPrefix: true });
+    token = token.token;
 
     const totalPercentage = () => {
         let total = 0;
@@ -47,7 +49,12 @@ export default function Searchpage(props) {
         }
         else {
             let finalArtists = [...artists].filter(artist => artist.percentage > 0);
-            console.log(finalArtists);
+            let serverObject = {
+                totalSongs: songAmount,
+                artists: finalArtists
+            }
+            console.log(serverObject);
+            FetchServer('playlist', token, serverObject);
             return (
                 <Redirect to='/parampage' />
             )
@@ -94,7 +101,7 @@ export default function Searchpage(props) {
                 <div className='playlist-controls'>
                     <Container fluid >
                         <Row>
-                            <Col auto className='alert-col'>
+                            <Col className='alert-col'>
                                 <AlertMessage error={error} errorMessage={errorMessage} setError={setError}/>
                             </Col>
                         </Row>

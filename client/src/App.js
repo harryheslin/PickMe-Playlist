@@ -1,14 +1,12 @@
 
-import { React, useState } from 'react';
+import { React } from 'react';
 import homepage from './pages/homepage';
 import searchpage from './pages/searchpage';
 import NavBar from './components/navbar'
-import SubNavBar from './components/subNavbar'
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import styled from 'styled-components'
 import generatepage from './pages/generatepage';

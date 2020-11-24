@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect } from 'react';
 import PercentageSlider from './slider'
 import styled from 'styled-components'
 import { Col, Row, Container } from 'react-bootstrap'
@@ -15,7 +15,7 @@ export default function ArtistList(props) {
 
         //Checks whether the artist already exists, 
         //ensuring that previous percentage value is used
-        props.artists.map((element, index) => {
+        props.artists.map((element) => {
             if (previousArtistsNames.includes(element.label)) {
                 getArtists.map(artist => {
                     if (artist.name == element.label) {
@@ -36,8 +36,6 @@ export default function ArtistList(props) {
         })
         saveArtists(artistsTemp);
     }, [props.artists])
-
-
 
     const updatePercentage = (value, key) => {
         let temp = [...getArtists];
@@ -60,14 +58,14 @@ export default function ArtistList(props) {
         <Styles>
             {getArtists.map((i, index) => {
                 return (
-                    <div className="artist-list">
+                    <div key={index} className="artist-list">
                         <Container fluid className={colour[index % 2]}>
                             <Row md={3}>
                                 <Col>
                                     <img className='spotify-images' src={i.image} />
                                 </Col>
                                 <Col className='result-name'>
-                                    <h2 key={i} >{i.name}</h2>
+                                    <h2>{i.name}</h2>
                                 </Col>
                                 <Col className='result-slider'>
                                     <PercentageSlider updatePercentage={updatePercentage.bind(this)} artist={i} />

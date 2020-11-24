@@ -1,9 +1,12 @@
 import axios from "axios";
 
-export default function FetchServer(value) {
+export default function FetchServer(value, token, data) {
     return new Promise((resolve, reject) => {
         try {
-            axios.post(`http://localhost:3010/${value}`)
+            let params = new URLSearchParams();
+            params.append('token', token);
+            params.append('data', value === 'playlist' ? JSON.stringify({ data }) : data);
+            axios.post(`http://localhost:3010/${value}`, params)
                 .then(res => {
                     const result = res.data;
                     resolve(result);
