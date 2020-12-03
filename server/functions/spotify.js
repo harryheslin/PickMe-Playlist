@@ -7,8 +7,8 @@ module.exports = {
         authorizeURL = spotifyApi.createAuthorizeURL(scopes);
     },
 
-    testSpotify: function (spotifyApi) {
-        spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE').then(
+    getArtistAlbums: function (spotifyApi, artistId) {
+        spotifyApi.getArtistAlbums(artistId).then(
             function (data) {
                 console.log('Artist albums', data.body);
             },
@@ -18,8 +18,47 @@ module.exports = {
         );
     },
 
-    searchArtist: function (spotifyApi, artist) {
+    getAllTracks: async function (spotifyApi, artistID) {
+        let result = [];
+        let songNames = [];
+        let allAlbums = await spotifyApi.getArtistAlbums(artistID, { include_groups: 'album,single', country: 'AU', limit: 50 });
+        for (let i = 0; i < allAlbums.body.items.length; i++) {
+            let item = await spotifyApi.getAlbumTracks(allAlbums.body.items[i].id, { limit: 50 });
+            for (let k = 0; k < item.body.items.length; k++) {
+                if (!songNames.includes(item.body.items[k].name)) {
+                    songNames.push(item.body.items[k].name);
+                    result.push(item.body.items[k]);
+                }
+            }
+        }
+        return result;
+    },
+
+    getSongs: async function (spotifyApi, artistID, percentage, totalSongs) {
+        let returnSongs = [];
+        let artistTrackTotal = totalSongs * (percentage / 100);
+        let tracks;
         
+
+        //Get popular tracks first if less then or equal to 10
+        if (artistTrackTotal <= 10) {
+            tracks = await spotifyApi.getArtistTopTracks(artistID, 'AU');
+            for (let i = 0; i < artistTrackTotal; i++) {
+                returnSongs.push(tracks.body.tracks[i])
+            }
+        } else {
+            //Full artist catalog if over 10 songs
+            tracks = await this.getAllTracks(spotifyApi, artistID)
+            let i = 0;
+            while (i < artistTrackTotal) {
+                let random = Math.floor(Math.random() * tracks.length);
+                if (!returnSongs.includes(tracks[random])) {
+                    returnSongs.push(tracks[random]);
+                    i++;
+                }
+            }
+        }
+        return returnSongs;
     },
 
     getUser: async function (spotifyApi) {
