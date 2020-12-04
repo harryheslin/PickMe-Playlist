@@ -18,8 +18,8 @@ function App() {
       <NavBar />
         <Switch>
           <Route path="/" exact component={homepage} />
-          <Route path="/searchpage" exact component={searchpage} />
-          <Route path="/parampage" exact component={generatepage} />
+          <Route path="/searchpage" component={searchpage} />
+          <Route path="/parampage?token:value" component={generatepage} />
         </Switch>
       </Router>
     </Styles>

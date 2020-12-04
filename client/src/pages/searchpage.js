@@ -1,5 +1,5 @@
-import { React, useState } from 'react'
-import { Redirect } from "react-router-dom"
+import { React, useState, useEffect } from 'react'
+import { Redirect, useHistory } from "react-router-dom"
 import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
 import SearchBar from '../components/searchBar';
@@ -20,9 +20,26 @@ export default function Searchpage(props) {
     const [selectedArtists, setSelectedArtists] = useState();
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState();
+    const [serverObject, setServerObject] = useState();
     let token = qs.parse(props.location.search, { ignoreQueryPrefix: true });
     token = token.token;
+    //let token = props.match.params.value;
+    const history = useHistory();
 
+    useEffect(() => {
+        console.log(serverObject)
+        if (serverObject !== undefined) {
+            // FetchServer('playlist', token, serverObject);
+            history.push({
+                pathname: '/parampage?token' + token,
+                state: {
+                    serverObject
+                }
+            });
+        }
+    }, [serverObject]);
+    
+    
     const totalPercentage = () => {
         let total = 0;
         artists.map((element) => {
@@ -49,15 +66,14 @@ export default function Searchpage(props) {
         }
         else {
             let finalArtists = [...artists].filter(artist => artist.percentage > 0);
-            let serverObject = {
+            setServerObject({
                 totalSongs: songAmount,
                 artists: finalArtists
-            }
-            console.log(serverObject);
-            FetchServer('playlist', token, serverObject);
-            return (
-                <Redirect to='/parampage' />
-            )
+            })
+            setRedirect(false);
+            // return (
+            //     <Redirect to={'/parampage?token=' + token} />
+            // )
         }
     }
 

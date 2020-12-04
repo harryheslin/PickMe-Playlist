@@ -6,11 +6,11 @@ router.post('/', async function (req, res, next) {
   let spotifyApi = req.app.locals.spotifyApi;
   
    //Front end
-   //let artistObject = JSON.parse(req.body.data);
-   //console.log(req.body.token);
-
+   let artistObject = JSON.parse(req.body.data);
+   console.log(req.body.token);
+  console.log(artistObject);
   //Using Postman
-   let artistObject = req.body.data;
+  //let artistObject = req.body.data;
   
   let totalSongs = artistObject.data.totalSongs;
   let artists = artistObject.data.artists;
@@ -26,14 +26,13 @@ router.post('/', async function (req, res, next) {
     return a;
 }
 
-
   for (let i = 0; i < artists.length; i++){
     finalSongs[i] = (await spotify.getSongs(spotifyApi, artists[i].id, artists[i].percentage, totalSongs))
   }
   result = [];
   finalSongs.map(x => x.map(k => result.push(k.name)))
   console.log(shuffle(result));
-  res.status(200).json({artistObject});
+  res.status(200).json({result});
   });
   
   module.exports = router;

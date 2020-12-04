@@ -24,6 +24,7 @@ module.exports = {
         let allAlbums = await spotifyApi.getArtistAlbums(artistID, { include_groups: 'album,single', country: 'AU', limit: 50 });
         for (let i = 0; i < allAlbums.body.items.length; i++) {
             let item = await spotifyApi.getAlbumTracks(allAlbums.body.items[i].id, { limit: 50 });
+            //Remove duplicates accross EP and Albums
             for (let k = 0; k < item.body.items.length; k++) {
                 if (!songNames.includes(item.body.items[k].name)) {
                     songNames.push(item.body.items[k].name);
