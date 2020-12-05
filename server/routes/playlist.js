@@ -24,15 +24,36 @@ router.post('/', async function (req, res, next) {
         [a[i], a[j]] = [a[j], a[i]];
     }
     return a;
-}
+  }
+  
+  function getSongs(artist) {
+    return new Promise(async (resolve) => {
+      try {
+        let songs = await spotify.getSongs(spotifyApi, artist.id, artist.percentage, totalSongs);
+      resolve(songs);
+      } catch (error) {
+        console.log(error);
+      } 
+    })
+  }
 
   for (let i = 0; i < artists.length; i++){
-    finalSongs[i] = (await spotify.getSongs(spotifyApi, artists[i].id, artists[i].percentage, totalSongs))
+    finalSongs[i] = getSongs(artists[i])
   }
-  result = [];
-  finalSongs.map(x => x.map(k => result.push(k.name)))
-  console.log(shuffle(result));
-  res.status(200).json({result});
+
+
+  function renderResult() {
+    res.status(200).json({result});
+  }
+ 
+  Promise.all(finalSongs)
+    .then((res) => {
+      result = [];
+      res.map(x => x.map(k => result.push(k.name)));
+      result = shuffle(result);
+      console.log(result);
+      renderResult()
+    })
   });
   
   module.exports = router;

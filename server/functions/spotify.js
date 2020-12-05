@@ -41,6 +41,13 @@ module.exports = {
         let tracks;
         
 
+        //In for loop add another if statement for i < tracks.length
+        //Add into while loop to stop infinite loop
+            //if tracks.length < artistTracktotal, push them all, no need to randomize here
+            //then do a get similarArtistsTracks function
+            //get max number of similar artists, and get their popular in non random order
+            //continue this while the tracks is less then the required total 
+
         //Get popular tracks first if less then or equal to 10
         if (artistTrackTotal <= 10) {
             tracks = await spotifyApi.getArtistTopTracks(artistID, 'AU');

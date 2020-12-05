@@ -30,9 +30,6 @@ export default function Parampage(props) {
         setRefresh(false);
     }
 
-
-    // if (returnObject.length > 0) {
-    // console.log(returnObject);
     if (returnObject.result.length > 0) {
         return (
             <div>
@@ -52,4 +49,3 @@ export default function Parampage(props) {
     }
     
     
-//}
