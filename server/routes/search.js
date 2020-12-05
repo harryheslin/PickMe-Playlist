@@ -6,7 +6,6 @@ router.post('/', async function (req, res, next) {
   let inputValue = req.body.data;
   spotifyApi.setAccessToken(req.body.token);
   let artists = await spotifyApi.searchArtists(inputValue, { limit: 5 });
-  console.log("Pinged by the client!");
   res.status(200).json({ artists });
 });
 

@@ -35,30 +35,53 @@ module.exports = {
         return result;
     },
 
+    getSimilarSongs: async function (spotifyApi, artistID, tracksRequired) {
+        let result = [];
+        let similarArtists = await spotifyApi.getArtistRelatedArtists(artistID);
+        let similarIDs = similarArtists.body.artists.map(artist => artist.id);
+        for (let i = 0; i < similarIDs.length; i++) {
+            let similarTracks = await spotifyApi.getArtistTopTracks(similarIDs[i], 'AU');
+            //console.log(similarTracks);
+            for (let k = 0; k < similarTracks.body.tracks.length; k++) {
+                result.push(similarTracks.body.tracks[k]);
+                if (result.length >= tracksRequired) {
+                    console.log('DONE');
+                    return result;
+                }
+            }
+        }
+    },
+
     getSongs: async function (spotifyApi, artistID, percentage, totalSongs) {
         let returnSongs = [];
         let artistTrackTotal = totalSongs * (percentage / 100);
         let tracks;
-        
-
-        //In for loop add another if statement for i < tracks.length
-        //Add into while loop to stop infinite loop
-            //if tracks.length < artistTracktotal, push them all, no need to randomize here
-            //then do a get similarArtistsTracks function
-            //get max number of similar artists, and get their popular in non random order
-            //continue this while the tracks is less then the required total 
-
+ 
         //Get popular tracks first if less then or equal to 10
         if (artistTrackTotal <= 10) {
             tracks = await spotifyApi.getArtistTopTracks(artistID, 'AU');
-            for (let i = 0; i < artistTrackTotal; i++) {
+            for (let i = 0; i < tracks.length; i++) {
                 returnSongs.push(tracks.body.tracks[i])
             }
+            //If artist does not have enough popular songs to satisfy request, get similar artist tracks
+            if (returnSongs.length < artistTrackTotal) {
+                let tracksRequired = artistTrackTotal - returnSongs.length;
+                let similarTracks = await this.getSimilarSongs(spotifyApi, artistID, tracksRequired);
+                similarTracks.map(track => returnSongs.push(track));
+            }
         } else {
-            //Full artist catalog if over 10 songs
-            tracks = await this.getAllTracks(spotifyApi, artistID)
+            //Retrieve Full artist catalog if over 10 songs
+            tracks = await this.getAllTracks(spotifyApi, artistID);
+
+            //If not enough tracks are found from artist, get similar artist
+            if (tracks.length < artistTrackTotal) {
+                let tracksRequired = artistTrackTotal - tracks.length;
+                let similarTracks = await this.getSimilarSongs(spotifyApi, artistID, tracksRequired);
+                similarTracks.map(track => returnSongs.push(track));
+                console.log(returnSongs.length);
+            }
             let i = 0;
-            while (i < artistTrackTotal) {
+            while (i < tracks.length) {
                 let random = Math.floor(Math.random() * tracks.length);
                 if (!returnSongs.includes(tracks[random])) {
                     returnSongs.push(tracks[random]);
