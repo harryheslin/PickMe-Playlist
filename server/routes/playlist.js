@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const spotify = require('../functions/spotify.js');
+const helpers = require('../functions/helpers.js')
 
 router.post('/', async function (req, res, next) {
   let spotifyApi = req.app.locals.spotifyApi;
@@ -8,7 +9,7 @@ router.post('/', async function (req, res, next) {
    //Front end
    let artistObject = JSON.parse(req.body.data);
    console.log(req.body.token);
-  console.log(artistObject);
+   //console.log(artistObject);
   //Using Postman
   //let artistObject = req.body.data;
   
@@ -16,16 +17,7 @@ router.post('/', async function (req, res, next) {
   let artists = artistObject.data.artists;
   let finalSongs = [];
   spotifyApi.setAccessToken(req.body.token);
-  
-  //https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
-  function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
-  
+    
   function getSongs(artist) {
     return new Promise(async (resolve) => {
       try {
@@ -49,8 +41,10 @@ router.post('/', async function (req, res, next) {
   Promise.all(finalSongs)
     .then((res) => {
       result = [];
+      //res.map(x => x.map(k => result.push(k.artists[0].name)));
       res.map(x => x.map(k => result.push(k.name)));
-      result = shuffle(result);
+
+      result = helpers.shuffle(result);
       renderResult()
     })
   });
