@@ -42,8 +42,7 @@ router.post('/', async function (req, res, next) {
     .then((res) => {
       result = [];
       //res.map(x => x.map(k => result.push(k.artists[0].name)));
-      res.map(x => x.map(k => result.push(k.name)));
-
+      res.map(x => x.map(k => result.push(k)));
       result = helpers.shuffle(result);
       renderResult()
     })

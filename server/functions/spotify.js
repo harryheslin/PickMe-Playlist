@@ -78,7 +78,7 @@ module.exports = {
         //Get popular tracks first if less then or equal to 10
         if (artistTrackTotal <= 10) {
             tracks = await spotifyApi.getArtistTopTracks(artistID, 'AU');
-            for (let i = 0; i < tracks.body.tracks.length; i++) {
+            for (let i = 0; i < artistTrackTotal; i++) {
                 returnSongs.push(tracks.body.tracks[i])
             }
             //If artist does not have enough popular songs to satisfy request, get similar artist tracks
@@ -97,7 +97,8 @@ module.exports = {
                 similarTracks.map(track => returnSongs.push(track));
             }
             let i = 0;
-            while (i < tracks.length) {
+            let k = artistTrackTotal - returnSongs.length;
+            while (i < k) {
                 let random = Math.floor(Math.random() * tracks.length);
                 if (!returnSongs.includes(tracks[random])) {
                     returnSongs.push(tracks[random]);
@@ -105,6 +106,7 @@ module.exports = {
                 }
             }
         }
+        console.log(returnSongs.length)
         return returnSongs;
     },
 

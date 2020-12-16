@@ -2,6 +2,9 @@ import { Button } from 'react-bootstrap'
 import { Redirect, useHistory } from "react-router-dom"
 import { React, useEffect, useState } from 'react'
 import FetchServer from '../components/fetchServer';
+import { Col, Row, Container } from 'react-bootstrap';
+import styled from 'styled-components'
+import GeneratedPlaylist from '../components/generatedPlaylist';
 
 let qs = require('qs');
 
@@ -10,7 +13,7 @@ export default function Parampage(props) {
     let token = props.match.params.value;
     const history = useHistory();
     const [serverObject, setServerObject] = useState();
-    const [returnObject, setReturnObject] = useState({result: []});
+    const [returnObject, setReturnObject] = useState({ result: [] });
 
     useEffect(() => {
         if (history.location.state.serverObject) {
@@ -22,7 +25,6 @@ export default function Parampage(props) {
     function updateTracks() {
         FetchServer('playlist', token, serverObject)
             .then((result) => setReturnObject(result))
-            .then(console.log(returnObject))
     }
 
     if (refresh) {
@@ -32,20 +34,26 @@ export default function Parampage(props) {
 
     if (returnObject.result.length > 0) {
         return (
-            <div>
-                <h1>Your Generated Playlist</h1>
-                <Button id="generate-button" onClick={() => setRefresh(true)}>Regenerate</Button>
-                {returnObject.result.map(x => {
-                    return (<h4>{x}</h4>)
-                })}
-            </div>
+            <Styles>
+                <Row>
+                    <Col>
+                        <GeneratedPlaylist playlist={returnObject} />
+                    </Col>
+                    <Col>
+                    <Button id="generate-button" onClick={() => setRefresh(true)}>Regenerate</Button>
+                    </Col>
+                </Row>
+            </Styles>
         )
     }
-      return (
+    return (
         <div>
             <h1>Your Playlist is generating...</h1>
         </div>
-    )  
-    }
-    
-    
+    )
+}
+const Styles = styled.div`
+
+`
+
+

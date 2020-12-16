@@ -8,7 +8,6 @@ import ArtistList from '../components/artistList';
 import TotalSongsOptions from '../components/totalSongs';
 import { Col, Row, Container } from 'react-bootstrap';
 import AlertMessage from '../components/alert';
-import FetchServer from '../components/fetchServer';
 
 let qs = require('qs');
 
