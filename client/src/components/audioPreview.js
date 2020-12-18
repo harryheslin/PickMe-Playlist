@@ -36,5 +36,6 @@ const Styles = styled.div`
 .icons{
     width: 2vw;
     min-width: 25px;
+    padding-bottom: 2px;
 }
 `

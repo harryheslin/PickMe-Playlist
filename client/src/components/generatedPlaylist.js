@@ -13,6 +13,7 @@ export default function generatedPlaylist(props) {
         return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
     }
 
+    console.log(playlist);
 
     return (
         <Styles>
@@ -61,7 +62,7 @@ const Styles = styled.div`
 .playlist-outside{
     background-color: rgba(30, 215, 96) ;
     padding: 0.5%;
-    height: 90vh;
+    height: 87vh;
     margin: 1%;
     border-radius: 20px;
 }
@@ -86,7 +87,7 @@ h5{
 }
 
 .generated-playlist{
-    height: 75vh;
+    height: 80vh;
     overflow-y:scroll;  
 }
 
