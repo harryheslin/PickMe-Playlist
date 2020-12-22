@@ -10,10 +10,17 @@ import GeneratedPlaylist from '../components/generatedPlaylist';
 
 export default function Parampage(props) {
     const [refresh, setRefresh] = useState(false);
+    const [save, setSave] = useState(false);
     let token = props.match.params.value;
     const history = useHistory();
     const [serverObject, setServerObject] = useState();
     const [returnObject, setReturnObject] = useState({ result: [] });
+
+    //Form Components
+    const [name, setName] = useState('PickMe Playlist');
+    const [description, setDescription] = useState('This playlist was generated using PickMe Playlist');
+    const [publicPlaylist, setPublicPlaylist] = useState(false);
+    const [image, setImage] = useState('Test Image');
 
     useEffect(() => {
         if (history.location.state.serverObject) {
@@ -27,9 +34,18 @@ export default function Parampage(props) {
             .then((result) => setReturnObject(result))
     }
 
+
+
     // UP TO HERE---------------------------- Need to make a form - Object must contain, name, description, public or private, image as base 64 
     function savePlaylist() {
-        FetchServer('save', token)
+        let playlist = {
+            songIds: [...returnObject.result].map(song => (song.id)),
+            name: name,
+            description: description,
+            image: image,
+            publicPlaylist: publicPlaylist
+        }
+        FetchServer('save', token, playlist)
     }
 
     if (refresh) {
@@ -37,67 +53,68 @@ export default function Parampage(props) {
         setRefresh(false);
     }
 
+
     if (returnObject.result.length > 0) {
         return (
             <Styles>
                 <Container fluid>
-                <Row>
-                    <Col sm={9}>
-                        <GeneratedPlaylist playlist={returnObject} />
+                    <Row>
+                        <Col sm={9}>
+                            <GeneratedPlaylist playlist={returnObject} />
                         </Col>
                         <div id='form-div'>
-                    <Form>
-                        <Col>
-                            <Form.Group>
+                            <Form>
                                 <Col>
-                                    <Row>
-                                        <h5 id='title'>Customize your playlists details</h5>
-                                    </Row>
-                                    <Row>
+                                    <Form.Group>
                                         <Col>
-                                            <Form.Label>Image</Form.Label>
-                                            <div id='placeholder'></div>
-                                            <Form.File id='file-upload' />
-                                            <Form.Label id='label'>Name</Form.Label>
-                                            <Form.Control type="text" size='lg' placeholder="PickMe Playlist" />
-                                            <Form.Label id='label'>Description</Form.Label>
-                                            <Form.Control as="textarea" rows={4} size='sm' placeholder="This Playlist was generated using PickMe Playlist" />
+                                            <Row>
+                                                <h5 id='title'>Customize your playlists details</h5>
+                                            </Row>
+                                            <Row>
+                                                <Col>
+                                                    <Form.Label>Image</Form.Label>
+                                                    <div id='placeholder'></div>
+                                                    <Form.File id='file-upload' />
+                                                    <Form.Label id='label'>Name</Form.Label>
+                                                    <Form.Control type="text" size='lg' value={name} onChange={(e) => setName(e.target.value)} />
+                                                    <Form.Label id='label'>Description</Form.Label>
+                                                    <Form.Control as="textarea" rows={4} size='sm' value={description} onChange={(e) => setDescription(e.target.value)} />
+                                                </Col>
+
+                                            </Row>
                                         </Col>
-                                        
-                                    </Row>
+                                        <Row>
+                                            <Col>
+                                                <Form.Check
+                                                    type="radio"
+                                                    label="Public"
+                                                    className="form-checks"
+                                                />
+                                            </Col>
+                                            <Col>
+                                                <Form.Check
+                                                    type="radio"
+                                                    label="Private"
+                                                    className="form-checks"
+                                                />
+                                            </Col>
+                                        </Row>
+                                        <Row id='button-row'>
+                                            <Col>
+                                                <Button className="main-buttons" onClick={() => savePlaylist()}>Save Playlist</Button>
+                                            </Col>
+                                            <Col>
+                                                <Button className="main-buttons" onClick={() => savePlaylist()}>New Playlist</Button>
+
+                                            </Col>
+                                        </Row>
+                                        <Button id="generate-button" onClick={() => setRefresh(true)}>Regenerate Playlist Songs</Button>
+                                    </Form.Group>
                                 </Col>
-                                <Row>
-                                    <Col>
-                                        <Form.Check
-                                            type="radio"
-                                            label="Public"
-                                            className="form-checks"
-                                        />
-                                    </Col>
-                                    <Col>
-                                        <Form.Check
-                                            type="radio"
-                                            label="Private"
-                                            className="form-checks"
-                                        />
-                                    </Col>
-                                </Row>
-                                <Row id='button-row'>
-                                    <Col>
-                                        <Button className="main-buttons" onClick={savePlaylist()}>Save Playlist</Button>
-                                    </Col>
-                                    <Col>
-                                        <Button className="main-buttons" onClick={savePlaylist()}>New Playlist</Button>
-                                        
-                                    </Col>
-                                </Row>
-                                <Button id="generate-button" onClick={() => setRefresh(true)}>Regenerate Playlist Songs</Button>
-                            </Form.Group>
-                        </Col>
                             </Form>
-                            </div>
+                        </div>
                     </Row>
-                    </Container>
+                </Container>
             </Styles>
         )
     }

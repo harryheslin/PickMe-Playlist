@@ -12,9 +12,6 @@ export default function generatedPlaylist(props) {
         var seconds = ((millis % 60000) / 1000).toFixed(0);
         return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
     }
-
-    console.log(playlist);
-
     return (
         <Styles>
             <div className="playlist-outside">
