@@ -59,10 +59,10 @@ export default function Parampage(props) {
             <Styles>
                 <Container fluid>
                     <Row>
-                        <Col sm={9}>
+                        <Col sm={8}>
                             <GeneratedPlaylist playlist={returnObject} />
                         </Col>
-                        <div id='form-div'>
+                        <div id='form-div' sm>
                             <Form>
                                 <Col>
                                     <Form.Group>
@@ -153,7 +153,7 @@ const Styles = styled.div`
     }
 
     #form-div{
-        margin: 0 auto;
+        margin: auto;
     }
 
     #title{

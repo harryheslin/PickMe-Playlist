@@ -5,7 +5,10 @@ const helpers = require('../functions/helpers.js')
 
 router.post('/', async function (req, res, next) {
     let spotifyApi = req.app.locals.spotifyApi;
-    console.log(JSON.parse(req.body.data));
+    let data = JSON.parse(req.body.data);
+    data = data.data;
+    spotifyApi.setAccessToken(req.body.token);
+    await spotify.createPlaylist(spotifyApi, data);
     res.status(200);
 })
 

@@ -28,7 +28,7 @@ module.exports = {
 
         //Ensure albums ids don't exceed 20, API maximum
         let j = -1;
-        for (let i = 0; i < allAlbums.body.items.length; i++){
+        for (let i = 0; i < allAlbums.body.items.length; i++) {
             if (i % 20 == 0) {
                 filteredAlbums.push(new Array());
                 j++
@@ -36,7 +36,7 @@ module.exports = {
             filteredAlbums[j].push(allAlbums.body.items[i]);
         }
         allAlbums = [];
-        for (let i = 0; i < filteredAlbums.length; i++){
+        for (let i = 0; i < filteredAlbums.length; i++) {
             allAlbums.push(await spotifyApi.getAlbums([filteredAlbums[i].map(albums => albums.id)]))
         }
         allAlbums = allAlbums.map(albumGroups => albumGroups.body.albums.map(album => album));
@@ -74,7 +74,7 @@ module.exports = {
         let returnSongs = [];
         let artistTrackTotal = totalSongs * (percentage / 100);
         let tracks;
- 
+
         //Get popular tracks first if less then or equal to 10
         if (artistTrackTotal <= 10) {
             tracks = await spotifyApi.getArtistTopTracks(artistID, 'AU');
@@ -118,5 +118,18 @@ module.exports = {
         catch (error) {
             console.log(error);
         }
+    },
+
+    createPlaylist: async function (spotifyApi, data) {
+        spotifyApi.createPlaylist(data.name, { 'description': data.description, 'public': data.publicPlaylist })
+            .then((res) => {
+                let id = res.body.id;
+                spotifyApi.addTracksToPlaylist(id, data.songIds.map(track => "spotify:track:" + track))
+                    .then(function (data) {
+                        console.log('Added tracks to playlist!');
+                    }, function (err) {
+                        console.log('Something went wrong!', err);
+                    });
+            })
     }
 }
