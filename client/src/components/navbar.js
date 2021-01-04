@@ -36,7 +36,8 @@ const Styles = styled.div`
 }
 
 .logo{
-  max-width: 3%;
+  max-width: 50px;
+  min-width: 20px;
   margin-right: 3%
 }
 `

@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react'
-import { Redirect, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
 import SearchBar from '../components/searchBar';
@@ -22,13 +22,11 @@ export default function Searchpage(props) {
     const [serverObject, setServerObject] = useState();
     let token = qs.parse(props.location.search, { ignoreQueryPrefix: true });
     token = token.token;
-    //let token = props.match.params.value;
     const history = useHistory();
 
     useEffect(() => {
         console.log(serverObject)
         if (serverObject !== undefined) {
-            // FetchServer('playlist', token, serverObject);
             history.push({
                 pathname: '/parampage?token' + token,
                 state: {

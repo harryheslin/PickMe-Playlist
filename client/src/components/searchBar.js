@@ -5,13 +5,20 @@ import makeAnimated from 'react-select/animated';
 import FetchServer from './fetchServer';
 
 export default function SearchBar(props) {
+
     const animatedComponents = makeAnimated();
 
     const loadOptions = async (inputValue, callback) => {
         const artists = await FetchServer('search', props.token, inputValue);
+        console.log(artists);
+        console.log(artists.artists.body.artists.items.length)
         callback(artists.artists.body.artists.items.map(i => ({ label: i.name, value: i.images[0].url, id: i.id })));
+        
     }
 
+    // useEffect(() => {
+    // }, [loadOptions])
+    
     return (
         <Styles>
             <div className="search-bar">

@@ -67,7 +67,7 @@ export default function ArtistList(props) {
                                 <Col className='result-name'>
                                     <h2>{i.name}</h2>
                                 </Col>
-                                <Col className='result-slider'>
+                                <Col sm={3} className='result-slider'>
                                     <PercentageSlider updatePercentage={updatePercentage.bind(this)} artist={i} />
                                 </Col>
                             </Row>
@@ -82,9 +82,11 @@ const Styles = styled.div`
 
 .spotify-images{
     max-width: 20%;
+    min-width: 60px;
     height: auto;
     border-radius: 50%;
     padding: 1%;
+    padding-top:2%;
 }
 
 .result-item1{
