@@ -71,21 +71,26 @@ module.exports = {
     },
 
     getSongs: async function (spotifyApi, artistID, percentage, totalSongs) {
-        let returnSongs = [];
+        let returnSongs = {
+            songs: [],
+            filler: false
+        };
         let artistTrackTotal = totalSongs * (percentage / 100);
         let tracks;
+        let filler = false;
 
         //Get popular tracks first if less then or equal to 10
         if (artistTrackTotal <= 10) {
             tracks = await spotifyApi.getArtistTopTracks(artistID, 'AU');
             for (let i = 0; i < artistTrackTotal; i++) {
-                returnSongs.push(tracks.body.tracks[i])
+                returnSongs.songs.push(tracks.body.tracks[i])
             }
             //If artist does not have enough popular songs to satisfy request, get similar artist tracks
-            if (returnSongs.length < artistTrackTotal) {
-                let tracksRequired = artistTrackTotal - returnSongs.length;
+            if (returnSongs.songs.length < artistTrackTotal) {
+                let tracksRequired = artistTrackTotal - returnSongs.songs.length;
                 let similarTracks = await this.getSimilarSongs(spotifyApi, artistID, tracksRequired);
-                similarTracks.map(track => returnSongs.push(track));
+                similarTracks.map(track => returnSongs.songs.push(track));
+                filler = true;
             }
         } else {
             //Retrieve Full artist catalog if over 10 songs
@@ -94,19 +99,21 @@ module.exports = {
             if (tracks.length < artistTrackTotal) {
                 let tracksRequired = artistTrackTotal - tracks.length;
                 let similarTracks = await this.getSimilarSongs(spotifyApi, artistID, tracksRequired);
-                similarTracks.map(track => returnSongs.push(track));
+                similarTracks.map(track => returnSongs.songs.push(track));
+                filler = true;
             }
             let i = 0;
-            let k = artistTrackTotal - returnSongs.length;
+            let k = artistTrackTotal - returnSongs.songs.length;
             while (i < k) {
                 let random = Math.floor(Math.random() * tracks.length);
-                if (!returnSongs.includes(tracks[random])) {
-                    returnSongs.push(tracks[random]);
+                if (!returnSongs.songs.includes(tracks[random])) {
+                    returnSongs.songs.push(tracks[random]);
                     i++;
                 }
             }
         }
-        console.log(returnSongs.length)
+        console.log(filler);
+        returnSongs.filler = filler;
         return returnSongs;
     },
 

@@ -9,7 +9,7 @@ router.post('/', async function (req, res, next) {
     data = data.data;
     spotifyApi.setAccessToken(req.body.token);
     await spotify.createPlaylist(spotifyApi, data);
-    res.status(200);
+    res.status(200).json({status: 'Success'});
 })
 
 module.exports = router;

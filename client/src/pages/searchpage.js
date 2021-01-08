@@ -20,15 +20,15 @@ export default function Searchpage(props) {
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState();
     const [serverObject, setServerObject] = useState();
-    let token = qs.parse(props.location.search, { ignoreQueryPrefix: true });
-    token = token.token;
+    // let token = qs.parse(props.location.search, { ignoreQueryPrefix: true });
+    let token = sessionStorage.getItem('token');
     const history = useHistory();
 
     useEffect(() => {
         console.log(serverObject)
         if (serverObject !== undefined) {
             history.push({
-                pathname: '/parampage?token' + token,
+                pathname: '/generatepage',
                 state: {
                     serverObject
                 }

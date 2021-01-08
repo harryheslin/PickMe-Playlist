@@ -4,7 +4,8 @@ import styled from 'styled-components'
 import { Col, Row, Container } from 'react-bootstrap'
 
 export default function generatedPlaylist(props) {
-    let playlist = props.playlist.result;
+    let playlist = props.playlist.result[0].songs;
+    //let playlist = true;
     let first = true;
     //https://stackoverflow.com/questions/21294302/converting-milliseconds-to-minutes-and-seconds-with-javascript
     function millisToMinutesAndSeconds(millis) {
@@ -12,45 +13,56 @@ export default function generatedPlaylist(props) {
         var seconds = ((millis % 60000) / 1000).toFixed(0);
         return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
     }
-    return (
-        <Styles>
-            <div className="playlist-outside">
-                <div className="playlist-inside">
-                    <div className="generated-playlist">
-                        {playlist.map(x => {
-                            if (first) {
-                                first = false;
+    console.log(playlist);
+    try {
+        return (
+            <Styles>
+                <div className="playlist-outside">
+                    <div className="playlist-inside">
+                        <div className="generated-playlist">
+                            {playlist.map(x => {
+                                if (first) {
+                                    first = false;
+                                    return (
+                                        < Container >
+                                            <Row className="playlist-headings">
+                                                <Col xs={5}> <h5>Name</h5>  </Col>
+                                                <Col xs={3}> <h5>Artist</h5> </Col>
+                                            </Row>
+                                            <Row className="playlist-songs">
+                                                <Col xs={5}> <h5>{x.name}</h5>  </Col>
+                                                <Col xs={3}> <h5>{x.artists[0].name}</h5> </Col>
+                                                <Col id='duration'> <h5>{millisToMinutesAndSeconds(x.duration_ms)}</h5> </Col>
+                                                <Col className="song-preview"> <AudioPreview preview={x.preview_url} /></Col>
+                                            </Row>
+                                        </Container>
+                                    )
+                                }
                                 return (
                                     < Container >
-                                        <Row className="playlist-headings">
-                                            <Col xs={5}> <h5>Name</h5>  </Col>
-                                            <Col xs={3}> <h5>Artist</h5> </Col>
-                                        </Row>
                                         <Row className="playlist-songs">
                                             <Col xs={5}> <h5>{x.name}</h5>  </Col>
                                             <Col xs={3}> <h5>{x.artists[0].name}</h5> </Col>
                                             <Col id='duration'> <h5>{millisToMinutesAndSeconds(x.duration_ms)}</h5> </Col>
-                                            <Col  className="song-preview"> <AudioPreview preview={x.preview_url} /></Col>
+                                            <Col className="song-preview"> <AudioPreview preview={x.preview_url} /></Col>
                                         </Row>
                                     </Container>
                                 )
-                            }
-                            return (
-                                < Container >
-                                    <Row className="playlist-songs">
-                                        <Col xs={5}> <h5>{x.name}</h5>  </Col>
-                                        <Col xs={3}> <h5>{x.artists[0].name}</h5> </Col>
-                                        <Col id='duration'> <h5>{millisToMinutesAndSeconds(x.duration_ms)}</h5> </Col>
-                                        <Col className="song-preview"> <AudioPreview preview={x.preview_url} /></Col>
-                                    </Row>
-                                </Container>
-                            )
-                        })}
+                            })}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Styles >
-    )
+            </Styles >
+        )
+    }
+    catch {
+        return (
+
+            //Add a redirection to an error page here
+            //return an error to bubble up?
+            <div><h1>Uh oh, something went wrong</h1></div>
+        )
+    }
 
 }
 

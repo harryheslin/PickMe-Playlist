@@ -9,10 +9,12 @@ export default function FetchServer(value, token, data) {
             axios.post(`http://localhost:3010/${value}`, params)
                 .then(res => {
                     const result = res.data;
+                    console.log(result);
                     resolve(result);
                 })
         }
         catch (e) {
+            console.log('error')
             reject(e);
         }
     })

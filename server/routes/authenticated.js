@@ -9,7 +9,7 @@ router.get('/', function (req, res) {
         let code = req.query.code;
         spotifyApi.authorizationCodeGrant(code)
             .then(async (data) => {
-                res.status(301).redirect("http://www.localhost:3000/searchpage?token=" + data.body.access_token);
+                res.status(301).redirect("http://www.localhost:3000/authed?token=" + data.body.access_token);
             })
             .catch((e) => {
                 res.render('error', { error: e});

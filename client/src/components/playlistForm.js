@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Col, Row, Container, Form } from 'react-bootstrap';
 import { Button } from 'react-bootstrap'
 import { useHistory, Redirect } from "react-router-dom"
+// import AlertMessage from '../components/alert'
 
 export default function PlaylistForm(props) {
 
@@ -12,7 +13,7 @@ export default function PlaylistForm(props) {
     useEffect(() => {
         if (newPlaylist) {
             history.push({
-                pathname: '/searchpage?token=' + props.token
+                pathname: '/searchpage'
             });
             history.go(0)
         }
@@ -20,13 +21,38 @@ export default function PlaylistForm(props) {
 
     const savePlaylist = props.savePlaylist;
     const refresh = props.refresh;
+    //const refresh = false;
+    // //Banner booleans
+    // const [saved, setSaved] = useState(false);
+    // const [regenerated, setRegenerated] = useState(false);
+
     //Form Components
     const [name, setName] = useState('PickMe Playlist');
     const [description, setDescription] = useState('This playlist was generated using PickMe Playlist');
     const [publicPlaylist, setPublicPlaylist] = useState(false);
 
-
     const updatePublic = () => setPublicPlaylist(!publicPlaylist);
+
+    const save = () => {
+        try {
+            savePlaylist(name, description, publicPlaylist);
+            // setRegenerated(false);
+            // setSaved(true);
+        }
+        catch {
+            console.log('uh oh!')
+        }
+    }
+
+    const regenerate = () => {
+        let res = refresh();
+        if (res) {
+            // setSaved(false)
+            // setRegenerated(true)
+        } else {
+            console.log('error')
+        }
+    }
 
     return (
         <Styles>
@@ -42,7 +68,7 @@ export default function PlaylistForm(props) {
                                     <Form.Label id='label'>Name</Form.Label>
                                     <Form.Control type="text" size='lg' value={name} onChange={(e) => setName(e.target.value)} />
                                     <Form.Label id='label'>Description</Form.Label>
-                                    <Form.Control as="textarea" rows={4} size='sm' value={description} onChange={(e) => setDescription(e.target.value)} />
+                                    <Form.Control as="textarea" rows={3} size='sm' value={description} onChange={(e) => setDescription(e.target.value)} />
                                 </Col>
 
                             </Row>
@@ -58,9 +84,12 @@ export default function PlaylistForm(props) {
                                 />
                             </Col>
                         </Row>
+                        {/* <Row id='alert-row'>
+                            <AlertMessage savedStat={saved} regenerateStat={regenerated} />
+                        </Row> */}
                         <Row id='button-row'>
                             <Col>
-                                <Button className="main-buttons" onClick={() => savePlaylist(name, description, publicPlaylist)}>Save Playlist</Button>
+                                <Button className="main-buttons" onClick={save}>Save Playlist</Button>
                             </Col>
                             <Col>
                                 <Button className="main-buttons" onClick={() => setNewPlaylist(true)}>New Playlist</Button>
@@ -68,7 +97,7 @@ export default function PlaylistForm(props) {
                             </Col>
                         </Row>
                         <Row>
-                            <Button id="generate-button" onClick={() => refresh()}>Regenerate Playlist Songs</Button>
+                            <Button id="generate-button" onClick={regenerate}>Regenerate Playlist Songs</Button>
                         </Row>
                     </Form.Group>
                 </Form>
@@ -86,6 +115,12 @@ Form{
 #form-div{
     margin: auto;
 }
+
+// #alert-row{
+//     margin-top: 5%;
+//     margin-left: 5%;
+//     margin-right: 5%;
+// }
 
 #title-row{
     background-color: rgba(30, 215, 96);

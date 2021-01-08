@@ -2,7 +2,7 @@ export default function Reviewpage() {
     
     return (
         <div>
-            <h1>Review Page</h1>
+            <h1>Error Page</h1>
             </div>
     )
 }
