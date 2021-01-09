@@ -8,12 +8,13 @@ export default function AlertMessage(props) {
         error: props.errorMessage,
         saved: 'Your Playlist has been succesfully saved to your Spotify account',
         regenerate: 'Your playlist has been regenerated with new tracks',
-        filler: 'Sorry! Some artists did not have enough songs to meet your request, these spaces have been filled with songs by similar artists'
+        filler: 'Sorry! Some artists did not have enough songs to meet your request, these spaces have been filled with songs by similar artists',
+        saveError: 'Sorry! Something has gone wrong and your playlist cannot be saved. Please try again later'
     }
 
     let returnColour = '';
     let returnMessage = '';
-
+    console.log('alert page')
     if (props.error) {
         returnMessage = messages.error;
         returnColour = 'danger'
@@ -26,6 +27,10 @@ export default function AlertMessage(props) {
     } else if (props.fillerArtists) {
         returnMessage = messages.filler;
         returnColour = 'warning'
+    } else if (props.saveError) {
+        returnMessage = messages.saveError;
+        console.log('error')
+        returnColour = 'danger'
     }
     if (returnMessage != '') {
         return (
@@ -44,7 +49,5 @@ export default function AlertMessage(props) {
     }
 }
 const Styles = styled.div`
-.alert-bar{
-    
-}`
+`
 

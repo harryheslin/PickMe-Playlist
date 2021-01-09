@@ -12,7 +12,6 @@ export default function ArtistList(props) {
     useEffect(() => {
         let artistsTemp = [];
         let previousArtistsNames = getArtists.map(i => i.name);
-
         //Checks whether the artist already exists, 
         //ensuring that previous percentage value is used
         props.artists.map((element) => {

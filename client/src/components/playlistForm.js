@@ -1,9 +1,8 @@
 import { React, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Col, Row, Container, Form } from 'react-bootstrap';
+import { Col, Row, Form } from 'react-bootstrap';
 import { Button } from 'react-bootstrap'
-import { useHistory, Redirect } from "react-router-dom"
-// import AlertMessage from '../components/alert'
+import { useHistory } from "react-router-dom"
 
 export default function PlaylistForm(props) {
 
@@ -21,10 +20,6 @@ export default function PlaylistForm(props) {
 
     const savePlaylist = props.savePlaylist;
     const refresh = props.refresh;
-    //const refresh = false;
-    // //Banner booleans
-    // const [saved, setSaved] = useState(false);
-    // const [regenerated, setRegenerated] = useState(false);
 
     //Form Components
     const [name, setName] = useState('PickMe Playlist');
@@ -32,27 +27,8 @@ export default function PlaylistForm(props) {
     const [publicPlaylist, setPublicPlaylist] = useState(false);
 
     const updatePublic = () => setPublicPlaylist(!publicPlaylist);
-
-    const save = () => {
-        try {
-            savePlaylist(name, description, publicPlaylist);
-            // setRegenerated(false);
-            // setSaved(true);
-        }
-        catch {
-            console.log('uh oh!')
-        }
-    }
-
-    const regenerate = () => {
-        let res = refresh();
-        if (res) {
-            // setSaved(false)
-            // setRegenerated(true)
-        } else {
-            console.log('error')
-        }
-    }
+    const save = () => { savePlaylist(name, description, publicPlaylist)}
+    const regenerate = () => {refresh()}
 
     return (
         <Styles>
@@ -84,10 +60,7 @@ export default function PlaylistForm(props) {
                                 />
                             </Col>
                         </Row>
-                        {/* <Row id='alert-row'>
-                            <AlertMessage savedStat={saved} regenerateStat={regenerated} />
-                        </Row> */}
-                        <Row id='button-row'>
+                        <Row>
                             <Col>
                                 <Button className="main-buttons" onClick={save}>Save Playlist</Button>
                             </Col>
@@ -97,7 +70,9 @@ export default function PlaylistForm(props) {
                             </Col>
                         </Row>
                         <Row>
-                            <Button id="generate-button" onClick={regenerate}>Regenerate Playlist Songs</Button>
+                            <Col>
+                                <Button id="generate-button" onClick={regenerate}>Regenerate Playlist Songs</Button>
+                            </Col>
                         </Row>
                     </Form.Group>
                 </Form>
@@ -116,11 +91,6 @@ Form{
     margin: auto;
 }
 
-// #alert-row{
-//     margin-top: 5%;
-//     margin-left: 5%;
-//     margin-right: 5%;
-// }
 
 #title-row{
     background-color: rgba(30, 215, 96);
@@ -180,15 +150,10 @@ button:focus,
     box-shadow: 0 0 0 0.2rem rgba(30, 215, 96, .5);
 }
 
-#button-row{
-    margin-right: 5%;
-}
-
 #generate-button{
-    margin-right: 20px;
     font-size: clamp(12px, 2vw, 10px);
     background-color: black;
     border-color: black;
-    width: 93%;
+    width: 100%;
 }
 `

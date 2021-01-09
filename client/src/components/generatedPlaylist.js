@@ -1,11 +1,10 @@
-import { React, useEffect } from 'react';
+import { React } from 'react';
 import AudioPreview from './audioPreview';
 import styled from 'styled-components'
 import { Col, Row, Container } from 'react-bootstrap'
 
 export default function generatedPlaylist(props) {
     let playlist = props.playlist.result[0].songs;
-    //let playlist = true;
     let first = true;
     //https://stackoverflow.com/questions/21294302/converting-milliseconds-to-minutes-and-seconds-with-javascript
     function millisToMinutesAndSeconds(millis) {
@@ -13,7 +12,7 @@ export default function generatedPlaylist(props) {
         var seconds = ((millis % 60000) / 1000).toFixed(0);
         return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
     }
-    console.log(playlist);
+
     try {
         return (
             <Styles>

@@ -24,7 +24,8 @@ function App() {
           <Route path="/authed" exact component={authed} />
           <Route path="/searchpage" component={searchpage} />
           <Route path="/generatepage" component={generatepage} />
-          </Switch>
+          <Route path="/errorpage" component={errorpage} />
+        </Switch>
         {/* </ErrorBoundary> */}
       </Router>
     </Styles>

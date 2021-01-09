@@ -17,7 +17,7 @@ router.post('/', async function (req, res, next) {
   spotifyApi.setAccessToken(req.body.token);
 
   function getSongs(artist) {
-    return new Promise(async (resolve) => {
+    return new Promise(async (resolve, reject) => {
       try {
         let returnSongs = await spotify.getSongs(spotifyApi, artist.id, artist.percentage, totalSongs);
         if (returnSongs.filler) {
@@ -26,6 +26,7 @@ router.post('/', async function (req, res, next) {
         resolve(returnSongs.songs);
       } catch (error) {
         console.log(error);
+        res.status(400).json({ error });
       }
     })
   }
