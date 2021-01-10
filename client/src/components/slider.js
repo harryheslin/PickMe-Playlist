@@ -26,6 +26,7 @@ export default function PercentageSlider(props) {
                     </Col>
                     <Col>
                         <Slider
+                            id='slider'
                             value={percentage}
                             orientation="horizontal"
                             onChange={handleChange}
@@ -45,5 +46,9 @@ const Styles = styled.div`
 
 .percentage-text {
     color: white;
+}
+
+.slider{
+    width: 100vw;
 }
 `

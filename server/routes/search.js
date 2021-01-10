@@ -9,6 +9,7 @@ router.post('/', async function (req, res, next) {
     let artists = await spotifyApi.searchArtists(inputValue, { limit: 10 })
     res.status(200).json({ artists })
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error } )
   }
 });

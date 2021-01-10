@@ -8,7 +8,6 @@ export default function ProgressBar(props) {
     let percentage = data[0].percentage;
     let symbol = data[0].symbol;
     let animated = data[0].animated;
-    if (percentage > 0) {
         return (
             <Styles>
                 <div className='progress-bar'>
@@ -16,24 +15,12 @@ export default function ProgressBar(props) {
                 </div>
             </Styles>
         )
-    }
-    return (
-        <Styles>
-            <div className='instructions'>
-                <h5>Increase artist percentage with sliders</h5>
-            </div>
-        </Styles>
-    )
 }
 
 const Styles = styled.div`
 .progress-bar{
     width: 100%;
-    margin-left: 1%;
     background-color: white;
-}
-
-.instructions{
-    margin-left: 2%;
+    margin-bottom: 1vh;
 }
 `

@@ -98,6 +98,10 @@ const Styles = styled.div`
     border-radius: 10px;
 }
 
+h2{
+    font-size: clamp(25px, 2vw, 40px);
+}
+
 .result-name{
     padding-top: 2%;
     color: white;

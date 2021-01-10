@@ -44,7 +44,7 @@ export default function PlaylistForm(props) {
                                     <Form.Label id='label'>Name</Form.Label>
                                     <Form.Control type="text" size='lg' value={name} onChange={(e) => setName(e.target.value)} />
                                     <Form.Label id='label'>Description</Form.Label>
-                                    <Form.Control as="textarea" rows={3} size='sm' value={description} onChange={(e) => setDescription(e.target.value)} />
+                                    <Form.Control as="textarea" rows={8} size='sm' value={description} onChange={(e) => setDescription(e.target.value)} />
                                 </Col>
 
                             </Row>
@@ -141,10 +141,8 @@ button:focus,
 }
 
 .btn-primary:hover,
-.btn-primary:not(:disabled):not(.disabled).active, 
-.btn-primary:not(:disabled):not(.disabled):active, 
-.show>.btn-primary.dropdown-toggle,
-.btn-primary:not(:disabled):not(.disabled):active:focus {
+.btn-primary:not(:disabled):not(.disabled).active:focus, 
+.show>.btn-primary.dropdown-toggle {
     background-color: black;
     border-color: green;
     box-shadow: 0 0 0 0.2rem rgba(30, 215, 96, .5);

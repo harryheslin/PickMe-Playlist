@@ -35,8 +35,8 @@ export default function Searchpage(props) {
             });
         }
     }, [serverObject]);
-    
-    
+
+
     const totalPercentage = () => {
         let total = 0;
         artists.map((element) => {
@@ -111,27 +111,24 @@ export default function Searchpage(props) {
                 <div className='artists-list'>
                     <ArtistList artists={selectedArtists} saveArtists={setArtists} getArtists={getArtists.bind(this)} />
                 </div>
-                <div className='playlist-controls'>
+                <div className='justify-content-center'>
                     <Container fluid >
-                        <Row>
-                            <Col className='alert-col'>
-                                <AlertMessage error={error} errorMessage={errorMessage} setError={setError}/>
+                    <Row>
+                        <Col className='alert-col'>
+                            <AlertMessage error={error} errorMessage={errorMessage} setError={setError} />
+                        </Col>
+                    </Row>
+                    <Row className='progress-row'>
+                        <Col>
+                            <ProgressBar totalProgress={totalProgress.bind(this)} />
                             </Col>
-                        </Row>
-                        <Row>
-                            <Col md={6}>
-                                <ProgressBar totalProgress={totalProgress.bind(this)} />
-                            </Col>
-                            <Col>
-                                <h5 id="total-song-heading">Total Songs: </h5>
-                            </Col>
-                            <Col>
-                                <TotalSongsOptions songAmount={songAmount} setSongAmount={setSongAmount} />
-                            </Col>
-                            <Col>
-                                <Button id="generate-button" onClick={() => setRedirect(true)}>Generate Playlist</Button>
-                            </Col>
-                        </Row>
+                    </Row>
+                    <Row className='row justify-content-center'>
+                        <TotalSongsOptions id='total-songs' songAmount={songAmount} setSongAmount={setSongAmount} />
+                    </Row>
+                    <Row>
+                        <Button id="generate-button" onClick={() => setRedirect(true)}>Generate Playlist</Button>
+                    </Row>
                     </Container>
                 </div>
             </Styles>
@@ -163,21 +160,28 @@ export default function Searchpage(props) {
     text-align: center;
   }
 
-  #total-song-heading{
-    text-align: right;
-    padding-top: 1%;
-    padding-right: 5%;
+  #total-songs{
+      width: 60%
+      text-align: center;
   }
 
   #generate-button{
     background-color: black;
-    height: 110%;
-    border-color: black;
-    margin-left: 15%;
+    color: white;
+    border-color: rgba(30, 215, 96);
+    width: 100%;
+    margin-top: 3vh;
+    margin-left: 2%;
+    margin-right:2%;
+    margin-bottom: 1%;
+    font-size: clamp(25px, 2vw, 30px);
+    box-shadow: 0 0 0 0.2rem rgba(30, 215, 96, .5);
+    border-radius: 25px;
   }
   
   .artists-list{
-    height: 67vh;
+    height: calc(var(--vh, 1vh) * 50);
+    margin-bottom: calc(var(--vh, 1vh) * 1);
     overflow-y:scroll;
     margin-bottom: 1%;
 }

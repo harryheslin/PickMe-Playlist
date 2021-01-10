@@ -92,12 +92,12 @@ export default function GeneratePage(props) {
         setRegenerated(false);
         setSaved(false);
         console.log(returnObject)
-            let playlist = {
-                songIds: [...returnObject.result[0].songs].map(song => (song.id)),
-                name: name,
-                description: description,
-                publicPlaylist: publicPlaylist
-            }
+        let playlist = {
+            songIds: [...returnObject.result[0].songs].map(song => (song.id)),
+            name: name,
+            description: description,
+            publicPlaylist: publicPlaylist
+        }
         FetchServer('save', token, playlist)
             .then(() => (alertStatus('Save')))
             .catch((e) => (alertStatus('SaveError')))
@@ -113,7 +113,7 @@ export default function GeneratePage(props) {
                         </Col>
                         <Col xs>
                             <div id='alert-row'>
-                                <AlertMessage saveError={saveError} savedStat={saved} regenerateStat={regenerated} fillerArtists={returnObject.result[0].filler}/>
+                                <AlertMessage saveError={saveError} savedStat={saved} regenerateStat={regenerated} fillerArtists={returnObject.result[0].filler} />
                             </div>
                             <PlaylistForm savePlaylist={savePlaylist} refresh={refreshTracks} token={token} />
                         </Col>
@@ -123,9 +123,12 @@ export default function GeneratePage(props) {
         )
     }
     return (
-        <div>
-            <h1>Your Playlist is generating...</h1>
-        </div>
+        <Styles>
+            <div id='loading-div'>
+                <h1>Generating your PickMe Playlist</h1>
+                <img src='loading.gif' />
+            </div>
+        </Styles>
     )
 }
 const Styles = styled.div`
@@ -138,6 +141,11 @@ const Styles = styled.div`
         margin-top: 5%;
         margin-left: 5%;
         margin-right: 5%;
+    }
+
+    #loading-div{
+    text-align: center;
+    margin-top: calc(var(--vh, 1vh) * 20)
     }
 
     #generate-message{

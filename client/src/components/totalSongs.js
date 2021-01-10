@@ -40,7 +40,13 @@ const Styles = styled.div`
 .buttons{
     color: white;
     background-color: black;
+    width: 12vw;
+    margin-top: 2%;
 }
 .selected-button{
     background-color: rgba(30, 215, 96);
+    box-shadow: 0 0 0 0.2rem rgba(30, 215, 96, .5);
+    color: white;
+    width: 12vw;
+    margin-top: 2%;
 }`
