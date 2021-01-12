@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-router.post('/', async function (req, res, next) {
+router.post('/', async function (req, res) {
   try {
     let spotifyApi = req.app.locals.spotifyApi;
     let inputValue = req.body.data;

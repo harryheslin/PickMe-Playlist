@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 
 export default function SearchBar(props) {
     const [error, setError] = useState(false);
+    const [timeoutId, setTimeoutId] = useState(null);
     const history = useHistory();
 
     useEffect(() => {
@@ -25,11 +26,15 @@ export default function SearchBar(props) {
         return url;
     }
 
+    //300ms Keypress delay to limit requests to search API
     const loadOptions = (inputValue, callback) => {
-        FetchServer('search', props.token, inputValue)
+        clearTimeout(timeoutId);
+        setTimeoutId(() => setTimeout(() => {
+            FetchServer('search', props.token, inputValue)
             .then((artists) => callback(artists.artists.body.artists.items.map(i => ({ label: i.name, value: artistImage(i.images), id: i.id }))))
-            .then((x) => console.log(x))
             .catch((e) => setError(true))
+        }, 300)
+        )  
     }
 
     return (

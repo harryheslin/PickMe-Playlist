@@ -11,13 +11,18 @@ export default function AudioPreview(props) {
     }, [props])
 
     const [playing, setPlaying] = useState(false);
- 
+    const [timeoutId, setTimeoutId] = useState(null);
+
+    //This is broken!!!
     const start = () => {
-        audio.play();
         setPlaying(true);
-        const interval = setTimeout(() => {
+        audio.play();
+        clearTimeout(timeoutId);
+        console.log(audio.currentTime * 1000)
+        setTimeoutId(() => setTimeout(() => {
             setPlaying(false);
-        }, 30000 - (audio.currentTime * 1000))
+            console.log(audio.currentTime * 1000)
+        }, 30000 - (audio.currentTime * 1000)))
     }
 
     const stop = () => {
@@ -27,7 +32,7 @@ export default function AudioPreview(props) {
 
     return (
         <Styles>
-            <img className='icons' src={playing ? pause : play } onClick={playing ? stop : start}></img>
+            <img className='icons' alt={playing ? 'Pause' : 'Play'} src={playing ? pause : play } onClick={playing ? stop : start}></img>
             </Styles>
     )
 }

@@ -40,7 +40,7 @@ const Styles = styled.div`
 .buttons{
     color: white;
     background-color: black;
-    width: 12vw;
+    width: 13vw;
     margin-top: 2%;
 }
 .selected-button{

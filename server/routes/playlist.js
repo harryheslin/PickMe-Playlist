@@ -5,11 +5,7 @@ const helpers = require('../functions/helpers.js')
 
 router.post('/', async function (req, res, next) {
   let spotifyApi = req.app.locals.spotifyApi;
-
-  //Front end
   let artistObject = JSON.parse(req.body.data);
-  console.log(req.body.token);
-  //console.log(artistObject);
   let fillerSongs = false;
   let totalSongs = artistObject.data.totalSongs;
   let artists = artistObject.data.artists;
@@ -49,10 +45,8 @@ router.post('/', async function (req, res, next) {
         filler: fillerSongs
       }];
 
-      //res.map(x => x.map(k => result.push(k.artists[0].name)));
       res.map(x => x.map(k => songs.push(k)));
       result[0].songs = helpers.shuffle(songs);
-      console.log(result);
       renderResult()
     })
 });

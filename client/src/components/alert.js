@@ -14,7 +14,6 @@ export default function AlertMessage(props) {
 
     let returnColour = '';
     let returnMessage = '';
-    console.log('alert page')
     if (props.error) {
         returnMessage = messages.error;
         returnColour = 'danger'
@@ -32,10 +31,10 @@ export default function AlertMessage(props) {
         console.log('error')
         returnColour = 'danger'
     }
-    if (returnMessage != '') {
+    if (returnMessage !== '') {
         return (
             <Styles>
-                <Alert color={returnColour} className='alert-bar'>
+                <Alert color={returnColour} >
                     {returnMessage}
                 </Alert>
             </Styles>

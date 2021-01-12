@@ -2,49 +2,41 @@ import { Button } from 'react-bootstrap'
 import { React } from 'react'
 import styled from 'styled-components'
 import fetchServer from '../components/fetchServer.js';
-import { Col, Row, Container, Form } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 
 export default function Homepage() {
 
     async function HandleSubmit() {
         let redirect = await fetchServer('', '', '');
         window.location = redirect.spotifyauth;
-
     }
 
     return (
         <Styles>
             <Row>
-                {/* <Col sm={4}> */}
                 <div className='instruction-div'>
-                        <img className='numbers' src='number-one.png'></img>
+                        <img className='numbers' src='number-one.png' alt='Step 1' />
                         <h1>Pick Artists</h1>
                     <h3>Pick up to 20 artists to add to your playlist</h3>
                     <div className='bottom-line'></div>
                 </div>
             </Row>
             <Row>
-                {/* </Col>
-                <Col sm={4}> */}
                     <div className='instruction-div'>
-                        <img className='numbers' src='number-two.png'></img>
+                        <img className='numbers' src='number-two.png' alt='Step 2' />
                         <h1>Pick Percent</h1>
                     <h3>Choose your playlist size and percentage for each artist</h3>
                     <div className='bottom-line'></div>
                 </div>
                 </Row>
-                {/* </Col>
-                <Col sm={4}> */}
             <Row>
                     <div className='instruction-div'>
-                    <img className='numbers' src='number-three.png'></img>
+                    <img className='numbers' src='number-three.png' alt='Step 3' />
                         <h1>Save Playlist</h1>
                     <h3>Customise playlist details and save to your Spotify account</h3>
                     <div className='bottom-line'></div>
             </div>
             </Row>
-                {/* </Col>
-            </Row> */}
             <Row>
                 <Button
                     onClick={HandleSubmit}

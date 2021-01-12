@@ -1,14 +1,14 @@
-import { Redirect, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { React, useEffect, useState } from 'react'
 import FetchServer from '../components/fetchServer';
-import { Col, Row, Container, Form } from 'react-bootstrap';
+import { Col, Row, Container } from 'react-bootstrap';
 import styled from 'styled-components'
 import GeneratedPlaylist from '../components/generatedPlaylist';
 import PlaylistForm from '../components/playlistForm';
 import AlertMessage from '../components/alert'
 
 export default function GeneratePage(props) {
-    let token = sessionStorage.getItem('token');
+    let token = sessionStorage.getItem('PickMePlaylist');
 
     const [refresh, setRefresh] = useState(false);
     const [error, setError] = useState(false);
@@ -43,17 +43,17 @@ export default function GeneratePage(props) {
 
 
     function alertStatus(action) {
-        if (!firstLoad && action == 'Regenerate') {
+        if (!firstLoad && action === 'Regenerate') {
             setRegenerated(true);
             setSaved(false);
             setSaveError(false);
         }
-        else if (action == 'Save') {
+        else if (action === 'Save') {
             setSaveError(false);
             setSaved(true);
             setRegenerated(false);
         }
-        else if (action == 'SaveError') {
+        else if (action === 'SaveError') {
             setSaveError(true);
             setSaved(false);
             setRegenerated(false);
@@ -91,7 +91,6 @@ export default function GeneratePage(props) {
     function savePlaylist(name, description, publicPlaylist) {
         setRegenerated(false);
         setSaved(false);
-        console.log(returnObject)
         let playlist = {
             songIds: [...returnObject.result[0].songs].map(song => (song.id)),
             name: name,

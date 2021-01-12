@@ -3,9 +3,9 @@ import { Redirect } from "react-router-dom"
 let qs = require('qs');
 
 export default function Authed(props) {
-    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('PickMePlaylist');
     let token = qs.parse(props.location.search, { ignoreQueryPrefix: true });
-    sessionStorage.setItem('token', token.token);
+    sessionStorage.setItem('PickMePlaylist', token.token);
 
     return (
         <Redirect to="/searchpage" />

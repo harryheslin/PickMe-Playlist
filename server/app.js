@@ -1,20 +1,19 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+let createError = require('http-errors');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let logger = require('morgan');
 const cors = require('cors');
 
-var indexRouter = require('./routes/index');
-var searchRouter = require('./routes/search');
-var userRouter = require('./routes/user');
-var authenticatedRouter = require('./routes/authenticated');
+let indexRouter = require('./routes/index');
+let searchRouter = require('./routes/search');
+let authenticatedRouter = require('./routes/authenticated');
 let playlistRouter = require('./routes/playlist');
 let saveRouter = require('./routes/save');
 
-var app = express();
+let app = express();
 
-var SpotifyWebApi = require('spotify-web-api-node');
+let SpotifyWebApi = require('spotify-web-api-node');
 
 
 let spotifyApi = new SpotifyWebApi({
@@ -22,6 +21,7 @@ let spotifyApi = new SpotifyWebApi({
   clientSecret: '3af086ecdc724a52a909e8f4fd401159',
   redirectUri: 'http://localhost:3010/authenticated'
 });
+
 app.locals.spotifyApi = spotifyApi;
 
 // view engine setup
@@ -36,7 +36,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({origin: true}));
 
 app.use('/', indexRouter);
-app.use('/user', userRouter);
 app.use('/search', searchRouter);
 app.use('/authenticated', authenticatedRouter);
 app.use('/playlist', playlistRouter);

@@ -1,11 +1,7 @@
 import React from 'react'
 import {
   Navbar,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  NavbarText
+  NavbarBrand
 } from 'reactstrap';
 import styled from 'styled-components'
 
@@ -13,12 +9,11 @@ export default function NavBar(props) {
   return (
     <Styles>
       <Navbar className='navbar-style nav-item:hover' light expand="md">
-        <NavbarBrand className='title' href="/">PickMe Playlists</NavbarBrand>
-        <img className='logo ml-auto' src='spotifylogo.png' />
+        <NavbarBrand className='title' href="/">PickMe Playlist</NavbarBrand>
+        <img className='logo ml-auto' src='spotifylogo.png' alt='Spotify Logo'/>
       </Navbar>
     </Styles>
   )
-
 }
 
 const Styles = styled.div`

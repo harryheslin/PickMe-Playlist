@@ -9,8 +9,6 @@ import TotalSongsOptions from '../components/totalSongs';
 import { Col, Row, Container } from 'react-bootstrap';
 import AlertMessage from '../components/alert';
 
-let qs = require('qs');
-
 export default function Searchpage(props) {
 
     const [redirect, setRedirect] = useState(false);
@@ -20,12 +18,10 @@ export default function Searchpage(props) {
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState();
     const [serverObject, setServerObject] = useState();
-    // let token = qs.parse(props.location.search, { ignoreQueryPrefix: true });
-    let token = sessionStorage.getItem('token');
+    let token = sessionStorage.getItem('PickMePlaylist');
     const history = useHistory();
 
     useEffect(() => {
-        console.log(serverObject)
         if (serverObject !== undefined) {
             history.push({
                 pathname: '/generatepage',
@@ -57,7 +53,7 @@ export default function Searchpage(props) {
             setRedirect(false);
         }
         else if (songAmount === 0) {
-            setErrorMessage("Must select total songs")
+            setErrorMessage("Please select total songs")
             setError(true);
             setRedirect(false);
         }
@@ -68,9 +64,6 @@ export default function Searchpage(props) {
                 artists: finalArtists
             })
             setRedirect(false);
-            // return (
-            //     <Redirect to={'/parampage?token=' + token} />
-            // )
         }
     }
 
@@ -104,6 +97,10 @@ export default function Searchpage(props) {
         }];
     }
 
+    if ((selectedArtists === null || selectedArtists === '') && error) {
+        setError(false);
+    }
+
     if (selectedArtists && [...selectedArtists].length > 0) {
         return (
             <Styles>
@@ -135,9 +132,6 @@ export default function Searchpage(props) {
         )
     }
 
-    if (!selectedArtists && error) {
-        setError(false);
-    }
     return (
         <Styles>
             <SearchBar token={token} saveSearchBarArtists={setSelectedArtists} />

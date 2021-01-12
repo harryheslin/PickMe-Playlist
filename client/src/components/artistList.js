@@ -2,7 +2,7 @@ import { React, useEffect } from 'react';
 import PercentageSlider from './slider'
 import styled from 'styled-components'
 import { Col, Row, Container } from 'react-bootstrap'
-
+import alt  from './icons/black-spotify-logo.jpg'
 export default function ArtistList(props) {
 
     let getArtists = props.getArtists();
@@ -17,7 +17,7 @@ export default function ArtistList(props) {
         props.artists.map((element) => {
             if (previousArtistsNames.includes(element.label)) {
                 getArtists.map(artist => {
-                    if (artist.name == element.label) {
+                    if (artist.name === element.label) {
                         artistsTemp.push(artist)
                     }
                 })
@@ -46,7 +46,7 @@ export default function ArtistList(props) {
             percentage: value
         };
         getArtists.map((element, index) => {
-            if (element.name == key.name) {
+            if (element.name === key.name) {
                 temp[index] = updatedArtist
             }
             saveArtists(temp);
@@ -61,7 +61,7 @@ export default function ArtistList(props) {
                         <Container fluid className={colour[index % 2]}>
                             <Row md={3}>
                                 <Col>
-                                    <img className='spotify-images' src={i.image} />
+                                    <img className='spotify-images' src={i.image} alt={alt}/>
                                 </Col>
                                 <Col className='result-name'>
                                     <h2>{i.name}</h2>

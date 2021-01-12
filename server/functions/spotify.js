@@ -1,7 +1,6 @@
 var SpotifyWebApi = require('spotify-web-api-node');
 const { shuffle } = require('./helpers.js');
 const scopes = ['user-read-private', 'user-read-email', 'user-top-read', 'playlist-modify-public', 'playlist-modify-private'];
-const helpers = require('./helpers.js');
 
 module.exports = {
 
@@ -10,6 +9,7 @@ module.exports = {
     },
 
     getAllTracks: async function (spotifyApi, artistID) {
+        try {
             let result = [];
             let songNames = [];
             let filteredAlbums = [];
@@ -40,26 +40,36 @@ module.exports = {
                 }
             }
             return result;
+        }
+        catch (e) {
+            console.log(e);
+        }
     },
 
     getSimilarSongs: async function (spotifyApi, artistID, tracksRequired) {
-        let result = [];
-        let similarArtists = await spotifyApi.getArtistRelatedArtists(artistID);
-        let similarIDs = similarArtists.body.artists.map(artist => artist.id);
-        for (let i = 0; i < similarIDs.length; i++) {
-            let similarTracks = await spotifyApi.getArtistTopTracks(similarIDs[i], 'AU');
-            similarTracks = similarTracks.body.tracks.map(track => track);
-            shuffle(similarTracks);
-            for (let k = 0; k < similarTracks.length; k++) {
-                result.push(similarTracks[k]);
-                if (result.length >= tracksRequired) {
-                    return result;
+        try {
+            let result = [];
+            let similarArtists = await spotifyApi.getArtistRelatedArtists(artistID);
+            let similarIDs = similarArtists.body.artists.map(artist => artist.id);
+            for (let i = 0; i < similarIDs.length; i++) {
+                let similarTracks = await spotifyApi.getArtistTopTracks(similarIDs[i], 'AU');
+                similarTracks = similarTracks.body.tracks.map(track => track);
+                shuffle(similarTracks);
+                for (let k = 0; k < similarTracks.length; k++) {
+                    result.push(similarTracks[k]);
+                    if (result.length >= tracksRequired) {
+                        return result;
+                    }
                 }
             }
+        } 
+        catch (e) {
+            console.log(e);
         }
     },
 
     getSongs: async function (spotifyApi, artistID, percentage, totalSongs) {
+        try {
             let returnSongs = {
                 songs: [],
                 filler: false
@@ -103,6 +113,10 @@ module.exports = {
             }
             returnSongs.filler = filler;
             return returnSongs;
+        }
+        catch (e) {
+            console.log(e);
+        }
     },
 
     createPlaylist: async function (spotifyApi, data) {

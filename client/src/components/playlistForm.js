@@ -37,14 +37,14 @@ export default function PlaylistForm(props) {
                     <Form.Group>
                         <Col>
                             <Row id="title-row">
-                                <h5 id='title'>Customize your playlists details</h5>
+                                <h5 id='title'>Playlist Details</h5>
                             </Row>
                             <Row>
                                 <Col>
                                     <Form.Label id='label'>Name</Form.Label>
                                     <Form.Control type="text" size='lg' value={name} onChange={(e) => setName(e.target.value)} />
                                     <Form.Label id='label'>Description</Form.Label>
-                                    <Form.Control as="textarea" rows={8} size='sm' value={description} onChange={(e) => setDescription(e.target.value)} />
+                                    <Form.Control as="textarea" rows={5} size='sm' value={description} onChange={(e) => setDescription(e.target.value)} />
                                 </Col>
 
                             </Row>
@@ -101,7 +101,7 @@ Form{
     margin-left: 5%;
     margin-bottom: 3%;
     padding: 10px;
-    font-size: clamp(18px, 3vw, 14px);
+    font-size: clamp(20px, 3vw, 22px);
 }
 
 #label{
