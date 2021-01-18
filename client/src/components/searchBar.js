@@ -17,6 +17,7 @@ export default function SearchBar(props) {
                 pathname: '/errorpage'
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [error]);
 
     const animatedComponents = makeAnimated();

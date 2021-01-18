@@ -31,14 +31,16 @@ export default function GeneratePage(props) {
         } catch {
             setError(true);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         if (error) {
             history.push({
-                pathname: '/errorpage'
+                pathname: '/error'
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [error]);
 
 
@@ -125,7 +127,7 @@ export default function GeneratePage(props) {
         <Styles>
             <div id='loading-div'>
                 <h1>Generating your PickMe Playlist</h1>
-                <img src='loading.gif' />
+                <img src='loading.gif' alt='Loading...'/>
             </div>
         </Styles>
     )

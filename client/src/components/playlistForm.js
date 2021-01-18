@@ -12,10 +12,11 @@ export default function PlaylistForm(props) {
     useEffect(() => {
         if (newPlaylist) {
             history.push({
-                pathname: '/searchpage'
+                pathname: '/search'
             });
             history.go(0)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [newPlaylist]);
 
     const savePlaylist = props.savePlaylist;

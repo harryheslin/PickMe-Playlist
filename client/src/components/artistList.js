@@ -14,9 +14,9 @@ export default function ArtistList(props) {
         let previousArtistsNames = getArtists.map(i => i.name);
         //Checks whether the artist already exists, 
         //ensuring that previous percentage value is used
-        props.artists.map((element) => {
+        props.artists.forEach(element => {
             if (previousArtistsNames.includes(element.label)) {
-                getArtists.map(artist => {
+                getArtists.forEach(artist => {
                     if (artist.name === element.label) {
                         artistsTemp.push(artist)
                     }
@@ -34,6 +34,7 @@ export default function ArtistList(props) {
             }
         })
         saveArtists(artistsTemp);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.artists])
 
     const updatePercentage = (value, key) => {
@@ -45,7 +46,7 @@ export default function ArtistList(props) {
             image: artist.image,
             percentage: value
         };
-        getArtists.map((element, index) => {
+        getArtists.forEach((element, index) => {
             if (element.name === key.name) {
                 temp[index] = updatedArtist
             }

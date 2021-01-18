@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react'
+import { React } from 'react'
 import { Redirect } from "react-router-dom"
 let qs = require('qs');
 
@@ -8,6 +8,6 @@ export default function Authed(props) {
     sessionStorage.setItem('PickMePlaylist', token.token);
 
     return (
-        <Redirect to="/searchpage" />
+        <Redirect to="/search" />
     )   
 }

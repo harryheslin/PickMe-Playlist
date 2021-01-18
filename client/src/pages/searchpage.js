@@ -24,18 +24,19 @@ export default function Searchpage(props) {
     useEffect(() => {
         if (serverObject !== undefined) {
             history.push({
-                pathname: '/generatepage',
+                pathname: '/generate',
                 state: {
                     serverObject
                 }
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [serverObject]);
 
 
     const totalPercentage = () => {
         let total = 0;
-        artists.map((element) => {
+        artists.forEach((element) => {
             total += element.percentage;
         })
         return total;

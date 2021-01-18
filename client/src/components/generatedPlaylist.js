@@ -12,8 +12,6 @@ export default function generatedPlaylist(props) {
         var seconds = ((millis % 60000) / 1000).toFixed(0);
         return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
     }
-
-    try {
         return (
             <Styles>
                 <div className="playlist-outside">
@@ -54,16 +52,6 @@ export default function generatedPlaylist(props) {
             </Styles >
         )
     }
-    catch {
-        return (
-
-            //Add a redirection to an error page here
-            //return an error to bubble up?
-            <div><h1>Uh oh, something went wrong</h1></div>
-        )
-    }
-
-}
 
 const Styles = styled.div`
 

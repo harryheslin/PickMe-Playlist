@@ -24,7 +24,7 @@ class ErrorBoundary extends Component {
                 <Styles>
                     <div id='main-div'>
                         <h1>Uh Oh!</h1>
-                        <img src='broken.png' alt='Error Image'/>
+                        <img src='broken.png' alt='Error'/>
                         <h3>A client error has occurred,</h3>
                         <h3>Please return home and try again.</h3>
                         <Button id="home-button" href="/">Home</Button>

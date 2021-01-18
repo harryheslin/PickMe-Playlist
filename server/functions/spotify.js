@@ -1,7 +1,8 @@
 var SpotifyWebApi = require('spotify-web-api-node');
 const { shuffle } = require('./helpers.js');
-const scopes = ['user-read-private', 'user-read-email', 'user-top-read', 'playlist-modify-public', 'playlist-modify-private'];
+const scopes = ['playlist-modify-public', 'playlist-modify-private'];
 
+//'user-read-private', 'user-read-email', 'user-top-read',
 module.exports = {
 
     loginSpotify: async function (spotifyApi) {
