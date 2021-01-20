@@ -58,6 +58,7 @@ export default function PlaylistForm(props) {
                                     className="form-check"
                                     checked={publicPlaylist}
                                     onClick={updatePublic}
+                                    readOnly={true}
                                 />
                             </Col>
                         </Row>

@@ -3,16 +3,18 @@ var router = express.Router();
 var qs = require('qs');
 const spotify = require('../functions/spotify.js');
 
+//needs to be a post, but is a get
 router.get('/', function (req, res) {
     let spotifyApi = req.app.locals.spotifyApi;
     if (req.query.code) {
         let code = req.query.code;
         spotifyApi.authorizationCodeGrant(code)
             .then(async (data) => {
-                res.status(301).redirect("http://www.localhost:3000/authed?token=" + data.body.access_token);
+                res.status(301).redirect("http://www.localhost:3010/authed?token=" + data.body.access_token);
             })
             .catch((e) => {
-                res.render('error', { error: e});
+                console.log(e);
+                res.status(400).redirect("http://www.localhost:3010/error");
             })
     } else {
         res.redirect('/');

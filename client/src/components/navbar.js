@@ -10,7 +10,7 @@ export default function NavBar(props) {
     <Styles>
       <Navbar className='navbar-style nav-item:hover' light expand="md">
         <NavbarBrand className='title' href="/">PickMe Playlist</NavbarBrand>
-        <img className='logo ml-auto' src='spotifylogo.png' alt='Spotify Logo'/>
+        <img className='logo ml-auto' src='spotifylogo.png' alt='Spotify Logo' />
       </Navbar>
     </Styles>
   )
@@ -18,7 +18,7 @@ export default function NavBar(props) {
 
 const Styles = styled.div`
 .title{
-  font-size: 180%;
+  font-size: 160%;
   color: white;
 }
 

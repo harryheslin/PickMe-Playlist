@@ -21,7 +21,7 @@ export default function generatedPlaylist(props) {
                                 if (first) {
                                     first = false;
                                     return (
-                                        < Container >
+                                        < Container key={x.name}>
                                             <Row className="playlist-headings">
                                                 <Col xs={5}> <h5>Name</h5>  </Col>
                                                 <Col xs={3}> <h5>Artist</h5> </Col>
@@ -36,7 +36,7 @@ export default function generatedPlaylist(props) {
                                     )
                                 }
                                 return (
-                                    < Container >
+                                    < Container key={x.name}>
                                         <Row className="playlist-songs">
                                             <Col xs={5}> <h5>{x.name}</h5>  </Col>
                                             <Col xs={3}> <h5>{x.artists[0].name}</h5> </Col>

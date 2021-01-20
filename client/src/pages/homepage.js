@@ -15,27 +15,27 @@ export default function Homepage() {
         <Styles>
             <Row>
                 <div className='instruction-div'>
-                        <img className='numbers' src='number-one.png' alt='Step 1' />
-                        <h1>Pick Artists</h1>
+                    <img className='numbers' src='number-one.png' alt='Step 1' />
+                    <h1>Pick Artists</h1>
                     <h3>Pick up to 20 artists to add to your playlist</h3>
                     <div className='bottom-line'></div>
                 </div>
             </Row>
             <Row>
-                    <div className='instruction-div'>
-                        <img className='numbers' src='number-two.png' alt='Step 2' />
-                        <h1>Pick Percent</h1>
+                <div className='instruction-div'>
+                    <img className='numbers' src='number-two.png' alt='Step 2' />
+                    <h1>Pick Percent</h1>
                     <h3>Choose your playlist size and percentage for each artist</h3>
                     <div className='bottom-line'></div>
                 </div>
-                </Row>
+            </Row>
             <Row>
-                    <div className='instruction-div'>
+                <div className='instruction-div'>
                     <img className='numbers' src='number-three.png' alt='Step 3' />
-                        <h1>Save Playlist</h1>
+                    <h1>Save Playlist</h1>
                     <h3>Customise playlist details and save to your Spotify account</h3>
                     <div className='bottom-line'></div>
-            </div>
+                </div>
             </Row>
             <Row>
                 <Button
@@ -43,6 +43,10 @@ export default function Homepage() {
                 >Create a Playlist
                     </Button>
             </Row>
+            <Row className='about-row'>
+                <p>Author: Harry Heslin</p>
+                <p className='ml-auto'><a href="mailto:hege@example.com">hheslin@gmail.com</a></p>
+                </Row>
         </Styles>
     )
 }
@@ -55,6 +59,14 @@ const Styles = styled.div`
         border-width: medium;
         width: 100%;
         margin-top: 2%;
+    }
+
+    a{
+        color: rgba(30, 190, 96);
+    }
+    .about-row{
+        margin-left: 5%;
+        margin-right: 5%;
     }
 
     .bottom-line{

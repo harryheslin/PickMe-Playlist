@@ -4,7 +4,6 @@ import homepage from './pages/homepage';
 import searchpage from './pages/searchpage';
 import authed from './pages/authed';
 import Errorpage from './pages/errorpage';
-import aboutpage from './pages/aboutpage';
 import NavBar from './components/navbar'
 import {
   BrowserRouter as Router,
@@ -24,7 +23,7 @@ function App() {
       <Styles>
         <div id='maintain-div'>
           <h1 className='maintain-title'>Sorry!</h1>
-          <img src='maintenance.png' />
+          <img src='maintenance.png' alt='maintenance'/>
           <h2 className='maintain-title'>PickMe Playlists is currently offline for scheduled maintenance</h2>
           <h3 className='maintain-title'>Please try again later!</h3>
         </div>
@@ -38,10 +37,9 @@ function App() {
         <ErrorBoundary>
           <Switch>
             <Route path="/" exact component={homepage} />
-            <Route path="/authed" exact component={authed} />
+            <Route path="/authed" component={authed} />
             <Route path="/search" component={searchpage} />
             <Route path="/generate" component={generatepage} />
-            <Route path="/about" component={aboutpage} />
             <Route path="/error" render={() => (<Errorpage message='An application error has occured' />)} />
             <Route path="*" render={() => (<Errorpage message='The requested page does not exist' />)} />
           </Switch>
