@@ -1,7 +1,7 @@
 # SpotifyPlaylistApp
 
 1. Change directory to client folder 
-   1. Run 'npm install' & run 'npm build'
+   1. Run 'npm install' & run 'npm run build'
 
 1. Change directory to server folder 
    1. Run 'nodemon start', access the application on localhost:3010
