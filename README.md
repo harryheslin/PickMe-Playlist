@@ -1,4 +1,4 @@
-# SpotifyPlaylistApp
+# SpotifyPlaylistApp - https://pickmeplaylist.me/
 
 1. Change directory to client folder 
    1. Run 'npm install' & run 'npm run build'
