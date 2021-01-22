@@ -17,7 +17,7 @@ export default function generatedPlaylist(props) {
                 <div className="playlist-outside">
                     <div className="playlist-inside">
                         <div className="generated-playlist">
-                            {playlist.map(x => {
+                            {playlist.map(x => {       
                                 if (first) {
                                     first = false;
                                     return (
@@ -28,7 +28,7 @@ export default function generatedPlaylist(props) {
                                             </Row>
                                             <Row className="playlist-songs">
                                                 <Col xs={5}> <h5>{x.name}</h5>  </Col>
-                                                <Col xs={3}> <h5>{x.artists[0].name}</h5> </Col>
+                                                <Col xs={3}> <h5>{x.artists.map((artist, i) => artist.name + (x.artists.length > 1 && x.artists.length - 1 !== i ? ', ' : '') )}</h5> </Col>
                                                 <Col id='duration'> <h5>{millisToMinutesAndSeconds(x.duration_ms)}</h5> </Col>
                                                 <Col className="song-preview"> <AudioPreview preview={x.preview_url} /></Col>
                                             </Row>
@@ -39,7 +39,7 @@ export default function generatedPlaylist(props) {
                                     < Container key={x.name}>
                                         <Row className="playlist-songs">
                                             <Col xs={5}> <h5>{x.name}</h5>  </Col>
-                                            <Col xs={3}> <h5>{x.artists[0].name}</h5> </Col>
+                                            <Col xs={3}> <h5>{x.artists.map((artist, i) => artist.name + (x.artists.length > 1 && x.artists.length - 1 !== i ? ', ' : '') )}</h5> </Col>
                                             <Col id='duration'> <h5>{millisToMinutesAndSeconds(x.duration_ms)}</h5> </Col>
                                             <Col className="song-preview"> <AudioPreview preview={x.preview_url} /></Col>
                                         </Row>

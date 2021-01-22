@@ -10,11 +10,11 @@ router.get('/', function (req, res) {
         let code = req.query.code;
         spotifyApi.authorizationCodeGrant(code)
             .then(async (data) => {
-                res.status(301).redirect("http://www.localhost:3010/authed?token=" + data.body.access_token);
+                res.status(301).redirect(process.env.SPOTIFYREDIRECT + "/authed?token=" + data.body.access_token);
             })
             .catch((e) => {
                 console.log(e);
-                res.status(400).redirect("http://www.localhost:3010/error");
+                res.status(400).redirect(process.env.SPOTIFYREDIRECT + "/error");
             })
     } else {
         res.redirect('/');

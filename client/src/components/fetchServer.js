@@ -5,7 +5,7 @@ export default function FetchServer(value, token, data) {
             let params = new URLSearchParams();
             params.append('token', token);
             params.append('data', value === 'playlist' || value === 'save' ? JSON.stringify({ data }) : data);
-            axios.post(`http://localhost:3010/${value}`, params)
+            axios.post(`https://pickmeplaylist.me/${value}`, params)
                 .then(res => {
                     if (res.status === 200) {
                         const result = res.data;
