@@ -3,6 +3,10 @@
 ## Local Host Deployment 
 1. Change directory to client folder 
    1. Run 'npm install' 
+<<<<<<< HEAD
+=======
+   1. Update file ***client -> components ->  fetchServer.js -> `8: axios.post('localhost:3010/${value}', params)`***
+>>>>>>> 5561127351257e4719d388acf9324ae00394ca1d
    1. Run 'npm run build'
 
 1. Change directory to server folder
