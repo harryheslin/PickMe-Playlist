@@ -1,15 +1,24 @@
 # SpotifyPlaylistApp - https://pickmeplaylist.me/
 
+## Local Host Deployment 
 1. Change directory to client folder 
-   1. Run 'npm install' & run 'npm run build'
+   1. Run 'npm install' 
+   1. Update file *** client -> components ->  fetchServer.js -> `8: axios.post('localhost:3010/${value}', params)` ***
+   1. Run 'npm run build'
 
-1. Change directory to server folder 
-   1. Run 'nodemon start', access the application on localhost:3010
+1. Change directory to server folder
+   1. Create a .env file in the server directory at the top level
+   1. The file will have the following structure
+
+        ###### SPOTIFYCLIENTID = ________________
+        ###### SPOTIFYCLIENTSECRET = ________________
+        ###### SPOTIFYREDIRECT = http://localhost:3010
+
+   1. Run 'nodemon start'
+
+Access the application on localhost:3010
         
 #### **Important**
-To run application a Spotify Application must be registered to obtain application keys
-1. Create a .env file in the server directory at the top level
-2. The file wil have the following structure
+To run a Spotify Application must be registered to obtain a client id and client secret key
 
-###### SPOTIFYCLIENTID = ________________
-###### SPOTIFYCLIENTSECRET = ________________
+
