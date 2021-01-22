@@ -1,4 +1,9 @@
-# SpotifyPlaylistApp - https://pickmeplaylist.me/
+# PickMe Playlist - https://pickmeplaylist.me/
+
+PickMe Playlist is react & express application that allows you to quickly make a playlist based on the artists you want to hear.
+The user selects up to 20 artists they wish to hear and assigns a percentage to each. The total number of songs per percentage is 
+calculated against the selected total. The outputed playlist can then be saved to the users Spotify account for 
+future listening.
 
 ## Local Host Deployment 
 1. Change directory to client folder 
