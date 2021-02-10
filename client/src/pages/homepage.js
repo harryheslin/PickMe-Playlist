@@ -44,8 +44,8 @@ export default function Homepage() {
                     </Button>
             </Row>
             <Row className='about-row'>
-                <p>Github Repository</p>
-                <p className='ml-auto'><a href="https://github.com/harryheslin/PickMe-Playlist">hheslin@gmail.com</a></p>
+                <p>Author: Harry Heslin</p>
+                <p className='ml-auto'><a href="https://github.com/harryheslin/PickMe-Playlist">Github Repository</a></p>
                 </Row>
         </Styles>
     )
